@@ -164,12 +164,50 @@ public class MovieCollection
 
     private void searchCast()
     {
+        System.out.println("Enter a cast member: ");
+        String searchTerm = scanner.nextLine();
+
+        searchTerm = searchTerm.substring(0,1).toUpperCase() + searchTerm.substring(1).toLowerCase();
+
+        ArrayList<Movie> results = new ArrayList<Movie>();
+        ArrayList<String> castMembers = new ArrayList<String>();
+
+        for (int i = 0; i < movies.size(); i++) {
+            String movieCast = movies.get(i).getCast();
+            String[] cast = movieCast.split("\\|");
+            for(int a = 0; a< cast.length;a++){
+                if (cast[a].contains(searchTerm)){
+                    if(castMembers.size() == 0){
+                        castMembers.add(cast[a]);
+                    }
+                    else{
+                        for (int b = 0; b < castMembers.size();b++){
+                            int count = 0;
+                            if (castMembers.get(b).equals(cast[a])){
+                                count++;
+                            }
+                            if (b == castMembers.size()-1 && count == 0){
+                                castMembers.add(cast[a]);
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        for (int i = 1;i<=castMembers.size();i++){
+            System.out.println(i + ". " + castMembers.get(i-1));
+        }
+        System.out.println("Which cast member would you like to learn more about?");
+        System.out.print("Enter number: ");
+        int choice = scanner.nextInt();
+        scanner.nextLine();
 
     }
 
     private void searchKeywords()
     {
-        System.out.print("Enter a keyword search term: ");
+        System.out.print("Enter a title search term: ");
         String searchTerm = scanner.nextLine();
 
         // prevent case sensitivity
@@ -181,10 +219,10 @@ public class MovieCollection
         // search through ALL movies in collection
         for (int i = 0; i < movies.size(); i++)
         {
-            String keyWord = movies.get(i).getTitle();
-            keyWord = keyWord.toLowerCase();
+            String movieTitle = movies.get(i).getKeywords();
+            movieTitle = movieTitle.toLowerCase();
 
-            if (keyWord.indexOf(searchTerm) != -1)
+            if (movieTitle.indexOf(searchTerm) != -1)
             {
                 //add the Movie object to the results list
                 results.add(movies.get(i));
