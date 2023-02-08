@@ -261,7 +261,7 @@ public class MovieCollection
             movieKeywords = movieKeywords.toLowerCase();
 
             if (movieKeywords.indexOf(searchTerm) != -1) {
-                //add the Movie objest to the results list
+                //add the Movie object to the results list
                 results.add(movies.get(i));
             }
         }
